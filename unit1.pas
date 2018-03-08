@@ -81,7 +81,7 @@ begin
 
   dataList.Delete(0);
 
-  SetLength(parsedData, dataList.count);
+  SetLength(parsedData, dataList.count - 3);
   temp := TStringList.Create;
   s := '';
 
@@ -93,40 +93,43 @@ begin
     else
       s := Copy(dataList[index], 10, 999);
 
-    temp.Clear;
+    parsedData[index] := TStringList.Create;
 
     P := Pchar(s);
-    temp.add(AnsiExtractQuotedStr(P, '"'));
+    parsedData[index].add(AnsiExtractQuotedStr(P, '"'));
 
     s := Copy(s, Pos('open', s) + 7, 999);
     P := Pchar(s);
-    temp.add(AnsiExtractQuotedStr(P, '"'));
+    parsedData[index].add(AnsiExtractQuotedStr(P, '"'));
 
     s := Copy(s, Pos('high', s) + 7, 999);
     P := Pchar(s);
-    temp.add(AnsiExtractQuotedStr(P, '"'));
+    parsedData[index].add(AnsiExtractQuotedStr(P, '"'));
 
     s := Copy(s, Pos('low', s) + 6, 999);
     P := Pchar(s);
-    temp.add(AnsiExtractQuotedStr(P, '"'));
+    parsedData[index].add(AnsiExtractQuotedStr(P, '"'));
 
     s := Copy(s, Pos('close', s) + 8, 999);
     P := Pchar(s);
-    temp.add(AnsiExtractQuotedStr(P, '"'));
+    parsedData[index].add(AnsiExtractQuotedStr(P, '"'));
 
     s := Copy(s, Pos('volume', s) + 9, 999);
     P := Pchar(s);
-    temp.add(AnsiExtractQuotedStr(P, '"'));
-
-    addToData(index, temp, parsedData);
-
-    Memo1.lines.add(parsedData[0][0]);
-    Memo1.lines.add('---------------------------');
+    parsedData[index].add(AnsiExtractQuotedStr(P, '"'));
   end;
 
-  Memo1.lines.add(parsedData[0][0]);
-  Memo1.lines.add(parsedData[1][0]);
-  Memo1.lines.add(parsedData[2][0]);
+  Memo1.lines.add('First node: ');
+  for index := 0 to 5 do
+  begin
+    Memo1.lines.add(parsedData[0][index]);
+  end;
+
+  Memo1.lines.add('Last node: ');
+  for index := 0 to 5 do
+  begin
+    Memo1.lines.add(parsedData[length(parsedData) - 1][index]);
+  end;
 
   temp.Free;
   dataList.Free;
