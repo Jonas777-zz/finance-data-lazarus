@@ -26,22 +26,13 @@ object Form1: TForm1
     TabOrder = 1
   end
   object Memo1: TMemo
-    Left = 100
-    Height = 362
-    Top = 69
-    Width = 460
+    Left = 24
+    Height = 482
+    Top = 24
+    Width = 608
     Lines.Strings = (
       'Memo1'
     )
     TabOrder = 2
-  end
-  object Button3: TButton
-    Left = 288
-    Height = 25
-    Top = 528
-    Width = 75
-    Caption = 'Next Node'
-    OnClick = Button3Click
-    TabOrder = 3
   end
 end
